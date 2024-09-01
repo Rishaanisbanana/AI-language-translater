@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SillySpeak Translator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        textarea {
+            width: 80%;
+            height: 100px;
+            margin: 10px 0;
+            padding: 10px;
+            border: 2px solid #0078d7;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #005bb5;
+        }
+        .output {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SillySpeak Translator</h1>
+        <textarea id="englishText" placeholder="Enter English text here..."></textarea><br>
+        <button onclick="translateToSillySpeak()">Translate to SillySpeak</button>
+        <div class="output" id="sillySpeakText"></div>
+        <button onclick="playText('english')">Play English Text</button>
+        <button onclick="playText('sillySpeak')">Play SillySpeak Text</button>
+    </div>
+
+    <script>
+        function translateToSillySpeak() {
+            let text = document.getElementById('englishText').value;
+            let sillySpeakText = text.replace(/a/g, 'vc')
+                                     .replace(/e/g, 'xy')
+                                     .replace(/i/g, 'zq')
+                                     .replace(/o/g, 'pl')
+                                     .replace(/u/g, 'mn');
+            sillySpeakText = sillySpeakText.split(' ').map(word => word + 'vcnuy').join(' ');
+            document.getElementById('sillySpeakText').innerText = sillySpeakText;
+        }
+
+        function playText(type) {
+            let text;
+            if (type === 'english') {
+                text = document.getElementById('englishText').value;
+            } else {
+                text = document.getElementById('sillySpeakText').innerText;
+            }
+            let speech = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(speech);
+        }
+    </script>
+</body>
+</html>
